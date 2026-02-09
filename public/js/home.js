@@ -119,8 +119,8 @@ function initMap(events, households) {
       }).addTo(map);
       
       let popup = `<strong>${h.name}</strong>`;
-      if (h.arrival_date && h.departure_date) {
-        popup += `<br>${h.arrival_date} - ${h.departure_date}`;
+      if (h.address) {
+        popup += `<br>${h.address}`;
       }
       marker.bindPopup(popup);
       
