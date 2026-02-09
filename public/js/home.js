@@ -93,7 +93,7 @@ function initCalendar(events, households) {
 }
 
 function initMap(events, households) {
-  // Default center (US center) - adjust based on your family's location
+  // Default center (US center)
   const defaultCenter = [39.8283, -98.5795];
   const map = L.map('map').setView(defaultCenter, 4);
   
