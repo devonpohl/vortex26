@@ -14,6 +14,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust Railway's reverse proxy so secure cookies work
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,8 +31,10 @@ app.use(session({
   }
 }));
 
-// Static files (public directory)
-app.use(express.static(path.join(__dirname, '../public')));
+// Static assets only (CSS, JS, images) — HTML served through auth-protected routes
+app.use('/css', express.static(path.join(__dirname, '../public/css')));
+app.use('/js', express.static(path.join(__dirname, '../public/js')));
+app.use('/img', express.static(path.join(__dirname, '../public/img')));
 
 // Login page (no auth required)
 app.get('/login', (req, res) => {
