@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <!-- Angry swirling vortex with spiral arms and flying bits -->
+  <circle cx="20" cy="20" r="18" fill="#1e293b"/>
+  <!-- Thick chaotic spiral arms -->
+  <path d="M20 6 C30 6, 34 16, 34 20 C34 28, 26 34, 20 34 C12 34, 6 26, 8 18 C9 13, 14 10, 18 12"
+        fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M20 12 C26 12, 28 17, 28 20 C28 25, 24 28, 20 28 C16 28, 13 24, 14 20 C14.5 17.5, 17 16, 19 17"
+        fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <!-- Eye of the storm -->
+  <circle cx="20" cy="20" r="2" fill="#f87171"/>
+  <!-- Debris/chaos particles spiraling outward -->
+  <circle cx="9" cy="8" r="1.3" fill="#facc15"/>
+  <circle cx="32" cy="9" r="1" fill="#fb923c"/>
+  <circle cx="34" cy="28" r="1.2" fill="#a78bfa"/>
+  <circle cx="7" cy="30" r="0.9" fill="#34d399"/>
+  <circle cx="12" cy="6" r="0.7" fill="#f87171"/>
+  <text x="30" y="8" font-size="5" transform="rotate(20 30 8)">💩</text>
+  <text x="5" y="25" font-size="4" transform="rotate(-30 5 25)">🌪</text>
+</svg>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar - Family Reunion</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="/js/nav.js"></script>
+
+  <main>
+    <div class="calendar-page">
+      <div class="calendar-header">
+        <h2>Event Calendar</h2>
+        <div class="calendar-actions">
+          <a href="/events/new" class="btn-primary">+ Add Event</a>
+          <a id="subscribe-link" href="#" class="btn-secondary" title="Subscribe to calendar">📅 Subscribe</a>
+        </div>
+      </div>
+      <div id="full-calendar"></div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+  <script src="/js/calendar.js"></script>
+</body>
+</html>

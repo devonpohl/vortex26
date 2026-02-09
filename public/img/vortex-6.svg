@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <!-- Unhinged cartoon tornado -->
+  <circle cx="20" cy="20" r="18" fill="#7c3aed"/>
+  <!-- Tornado funnel - loose and wild -->
+  <path d="M7 8 C15 12, 25 6, 33 10 C28 12, 12 16, 30 16 C24 18, 10 18, 27 22 C22 23, 14 22, 24 26 C21 27, 17 26, 21 30 L19 33"
+        fill="none" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Cartoon stink lines at bottom -->
+  <path d="M16 33 Q15 35, 16 37" stroke="#facc15" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <path d="M20 34 Q19 36, 20 38" stroke="#facc15" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <path d="M24 33 Q23 35, 24 37" stroke="#facc15" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Flying debris -->
+  <text x="5" y="10" font-size="6">⭐</text>
+  <text x="31" y="9" font-size="5">🔥</text>
+  <text x="4" y="22" font-size="4">😵</text>
+</svg>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suggested Events - Family Reunion</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .suggestions-page {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .suggestions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .suggestions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .suggestion-card {
+      background: var(--color-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .suggestion-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--color-border);
+    }
+    
+    .suggestion-image.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--color-text-muted);
+    }
+    
+    .suggestion-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .suggestion-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+    }
+    
+    .suggestion-location {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .suggestion-description {
+      flex: 1;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    
+    .suggestion-contact {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+    
+    .suggestion-links {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .suggestion-links a {
+      font-size: 0.875rem;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+    
+    .suggestion-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .suggestion-actions {
+      margin-top: auto;
+    }
+    
+    .btn-create-event {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="/js/nav.js"></script>
+
+  <main>
+    <div class="suggestions-page">
+      <div class="suggestions-header">
+        <h2>💡 Event Ideas</h2>
+      </div>
+      
+      <div class="suggestions-grid" id="suggestions-grid">
+        <!-- Cards will be populated by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/suggested.js"></script>
+</body>
+</html>

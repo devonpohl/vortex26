@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details - Family Reunion</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="/js/nav.js"></script>
+
+  <main>
+    <article class="event-detail">
+      <div class="event-header">
+        <h2 id="event-title">Loading...</h2>
+        <div class="event-actions">
+          <button id="edit-btn" class="btn-secondary">Edit</button>
+          <button id="delete-btn" class="btn-danger">Delete</button>
+        </div>
+      </div>
+
+      <div class="event-meta">
+        <p id="event-time"></p>
+        <p id="event-location"></p>
+        <p id="event-address"></p>
+      </div>
+
+      <div id="event-description" class="event-description"></div>
+
+      <div id="event-map" class="event-map"></div>
+
+      <!-- RSVP Section -->
+      <section class="rsvp-section">
+        <h3>RSVP</h3>
+
+        <form id="rsvp-form" class="rsvp-add">
+          <input type="text" id="rsvp-name" name="name" placeholder="Your name" required>
+          <button type="submit" class="btn-primary">I'm in!</button>
+        </form>
+
+        <div class="rsvp-list">
+          <h4>Attending</h4>
+          <ul id="rsvp-attendees"></ul>
+        </div>
+      </section>
+    </article>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Edit Event</h3>
+        <form id="edit-form">
+          <div class="form-group">
+            <label for="edit-title">Event Title *</label>
+            <input type="text" id="edit-title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-description">Description</label>
+            <textarea id="edit-description" name="description" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-start_time">Start Time *</label>
+              <input type="datetime-local" id="edit-start_time" name="start_time" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-end_time">End Time</label>
+              <input type="datetime-local" id="edit-end_time" name="end_time">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit-location_name">Location Name</label>
+            <input type="text" id="edit-location_name" name="location_name">
+          </div>
+          <div class="form-group">
+            <label for="edit-address">Address</label>
+            <input type="text" id="edit-address" name="address">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <button type="button" id="cancel-edit" class="btn-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/event-detail.js"></script>
+</body>
+</html>

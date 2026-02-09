@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <!-- Pinwheel vortex -->
+  <circle cx="20" cy="20" r="18" fill="#2563eb"/>
+  <g transform="translate(20,20)">
+    <path d="M0 0 C0 -6, 8 -14, 0 -14" fill="white" opacity="0.9"/>
+    <path d="M0 0 C6 0, 14 8, 14 0" fill="white" opacity="0.75"/>
+    <path d="M0 0 C0 6, -8 14, 0 14" fill="white" opacity="0.6"/>
+    <path d="M0 0 C-6 0, -14 -8, -14 0" fill="white" opacity="0.45"/>
+  </g>
+  <circle cx="20" cy="20" r="2.5" fill="white"/>
+</svg>
