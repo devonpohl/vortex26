@@ -150,7 +150,7 @@ function initMap(events, households) {
     map.fitBounds(bounds, { padding: [20, 20] });
   }
 
-  // Fullscreen toggle
+  // Expand toggle (CSS-based, works on iOS)
   const mapEl = document.getElementById('map');
   const mapCard = document.querySelector('.map-card');
   const btn = document.createElement('button');
@@ -160,18 +160,9 @@ function initMap(events, households) {
   mapEl.appendChild(btn);
 
   btn.addEventListener('click', function () {
-    if (!document.fullscreenElement) {
-      mapCard.requestFullscreen().then(function () {
-        map.invalidateSize();
-      });
-    } else {
-      document.exitFullscreen();
-    }
-  });
-
-  document.addEventListener('fullscreenchange', function () {
-    // Give the browser a frame to settle layout, then tell Leaflet to recalculate
-    setTimeout(function () { map.invalidateSize(); }, 100);
+    mapCard.classList.toggle('map-expanded');
+    document.body.classList.toggle('map-is-expanded');
+    setTimeout(function () { map.invalidateSize(); }, 50);
   });
 }
 

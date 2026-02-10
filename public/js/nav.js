@@ -3,6 +3,7 @@
     { href: '/', label: 'Home' },
     { href: '/suggested', label: 'Event Ideas' },
     { href: '/photos', label: 'Photos' },
+    { href: '/snake', label: 'Snake' },
     { href: '/logout', label: 'Logout' },
   ];
 

@@ -69,9 +69,17 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS high_scores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    initials TEXT NOT NULL,
+    score INTEGER NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
+
   CREATE INDEX IF NOT EXISTS idx_events_start ON events(start_time);
   CREATE INDEX IF NOT EXISTS idx_rsvps_event ON rsvps(event_id);
   CREATE INDEX IF NOT EXISTS idx_households_dates ON households(arrival_date, departure_date);
+  CREATE INDEX IF NOT EXISTS idx_high_scores ON high_scores(score DESC);
 `);
 
 // Refresh suggested events on every startup (curated content, not user data)

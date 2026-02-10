@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake - Pohler Vortex 2026</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .snake-page {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .game-card {
+      text-align: center;
+    }
+
+    .game-card h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .game-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    #game-canvas {
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius);
+      display: block;
+      margin: 0 auto;
+      background: #1a1a2e;
+      max-width: 100%;
+      touch-action: none;
+    }
+
+    .game-instructions {
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      margin: 0.5rem 0 0;
+    }
+
+    .game-controls {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .game-over-overlay {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fef2f2;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .game-over-overlay.show {
+      display: block;
+    }
+
+    .game-over-overlay h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--color-danger);
+    }
+
+    .initials-form {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .initials-form input {
+      width: 80px;
+      padding: 0.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .leaderboard-card h2 {
+      margin-bottom: 0.75rem;
+    }
+
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .leaderboard-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.9rem;
+    }
+
+    .leaderboard-list li:last-child {
+      border-bottom: none;
+    }
+
+    .lb-rank {
+      color: var(--color-text-muted);
+      width: 24px;
+    }
+
+    .lb-initials {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      flex: 1;
+    }
+
+    .lb-score {
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .lb-empty {
+      color: var(--color-text-muted);
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+    }
+
+    /* Mobile d-pad */
+    .dpad {
+      display: none;
+      margin: 0.75rem auto 0;
+      width: 150px;
+      height: 150px;
+      position: relative;
+    }
+
+    .dpad-btn {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .dpad-btn:active {
+      background: var(--color-primary-dark);
+    }
+
+    .dpad-up { top: 0; left: 50px; }
+    .dpad-down { bottom: 0; left: 50px; }
+    .dpad-left { top: 50px; left: 0; }
+    .dpad-right { top: 50px; right: 0; }
+
+    @media (max-width: 768px) {
+      .snake-page {
+        grid-template-columns: 1fr;
+      }
+
+      .dpad {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="/js/nav.js"></script>
+
+  <main>
+    <section class="snake-page">
+      <div class="card game-card">
+        <h2>🐍 Snake</h2>
+        <div class="game-info">
+          <span>Score: <span id="score">0</span></span>
+          <span>Best: <span id="best-score">0</span></span>
+        </div>
+        <canvas id="game-canvas" width="400" height="400"></canvas>
+        <p class="game-instructions">Arrow keys or WASD to steer. Swipe on mobile. Space to start.</p>
+        <div class="game-controls">
+          <button id="start-btn" class="btn-primary">Start Game</button>
+        </div>
+        <div class="dpad">
+          <button class="dpad-btn dpad-up" data-dir="up">▲</button>
+          <button class="dpad-btn dpad-down" data-dir="down">▼</button>
+          <button class="dpad-btn dpad-left" data-dir="left">◀</button>
+          <button class="dpad-btn dpad-right" data-dir="right">▶</button>
+        </div>
+        <div id="game-over" class="game-over-overlay">
+          <h3>Game Over!</h3>
+          <p>Score: <span id="final-score">0</span></p>
+          <div id="submit-score" class="initials-form">
+            <input type="text" id="initials-input" maxlength="3" placeholder="AAA">
+            <button id="submit-btn" class="btn-primary">Submit</button>
+          </div>
+          <button id="restart-btn" class="btn-secondary" style="margin-top: 0.5rem;">Play Again</button>
+        </div>
+      </div>
+
+      <div class="card leaderboard-card">
+        <h2>🏆 Leaderboard</h2>
+        <ul id="leaderboard" class="leaderboard-list">
+          <li class="lb-empty">No scores yet</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/snake.js"></script>
+</body>
+</html>

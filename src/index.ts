@@ -8,6 +8,7 @@ import { requireAuth, checkPassword } from './middleware/auth.js';
 import eventsRouter from './routes/events.js';
 import householdsRouter from './routes/households.js';
 import suggestedRouter from './routes/suggested-events.js';
+import scoresRouter from './routes/scores.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -67,6 +68,7 @@ app.get('/logout', (req, res) => {
 app.use('/api/events', requireAuth, eventsRouter);
 app.use('/api/households', requireAuth, householdsRouter);
 app.use('/api/suggested', requireAuth, suggestedRouter);
+app.use('/api/scores', requireAuth, scoresRouter);
 
 // Protected page routes
 app.get('/', requireAuth, (req, res) => {
@@ -91,6 +93,10 @@ app.get('/suggested', requireAuth, (req, res) => {
 
 app.get('/photos', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/photos.html'));
+});
+
+app.get('/snake', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/snake.html'));
 });
 
 // Start server

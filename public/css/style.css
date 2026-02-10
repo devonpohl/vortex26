@@ -133,25 +133,38 @@ nav a:hover, nav a.active {
   background: var(--color-bg);
 }
 
-.map-card:fullscreen {
-  background: white;
+/* Expanded map (CSS-based, works on iOS) */
+.map-expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
   padding: 0;
-}
-
-.map-card:fullscreen #map {
-  height: 100vh;
+  margin: 0;
   border-radius: 0;
 }
 
-.map-card:fullscreen h2 {
+.map-expanded #map {
+  height: 100% !important;
+  min-height: 100vh;
+  border-radius: 0;
+}
+
+.map-expanded .card-header {
   display: none;
 }
 
-.map-card:fullscreen .map-fullscreen-btn {
+.map-expanded .map-fullscreen-btn {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  z-index: 1000;
+  z-index: 2001;
+}
+
+body.map-is-expanded {
+  overflow: hidden;
 }
 
 /* Main content */
