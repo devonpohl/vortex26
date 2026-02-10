@@ -212,16 +212,24 @@
     }
   });
 
-  // D-pad controls (mobile)
+  // D-pad controls (mobile + desktop responsive preview)
+  function handleDpad(btn) {
+    var dir = btn.getAttribute('data-dir');
+    if (dir === 'up' && direction.y !== 1) nextDirection = { x: 0, y: -1 };
+    if (dir === 'down' && direction.y !== -1) nextDirection = { x: 0, y: 1 };
+    if (dir === 'left' && direction.x !== 1) nextDirection = { x: -1, y: 0 };
+    if (dir === 'right' && direction.x !== -1) nextDirection = { x: 1, y: 0 };
+    if (!running) { init(); start(); }
+  }
+
   document.querySelectorAll('.dpad-btn').forEach(function (btn) {
     btn.addEventListener('touchstart', function (e) {
       e.preventDefault();
-      var dir = btn.getAttribute('data-dir');
-      if (dir === 'up' && direction.y !== 1) nextDirection = { x: 0, y: -1 };
-      if (dir === 'down' && direction.y !== -1) nextDirection = { x: 0, y: 1 };
-      if (dir === 'left' && direction.x !== 1) nextDirection = { x: -1, y: 0 };
-      if (dir === 'right' && direction.x !== -1) nextDirection = { x: 1, y: 0 };
-      if (!running) { init(); start(); }
+      handleDpad(btn);
+    });
+    btn.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      handleDpad(btn);
     });
   });
 
