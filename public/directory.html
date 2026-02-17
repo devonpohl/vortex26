@@ -16,13 +16,14 @@
     }
 
     .directory-add {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr auto;
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
     }
 
     .directory-add input {
+      flex: 1 1 150px;
       padding: 0.6rem 0.75rem;
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
@@ -34,6 +35,12 @@
       outline: none;
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .directory-add .btn-primary {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      white-space: nowrap;
     }
 
     .directory-list {
@@ -123,7 +130,11 @@
 
     @media (max-width: 768px) {
       .directory-add {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      .directory-add input {
+        flex-basis: auto;
       }
 
       .directory-entry {
