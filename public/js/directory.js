@@ -2,6 +2,35 @@
   var listEl = document.getElementById('directory-list');
   var addForm = document.getElementById('add-form');
 
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function stripPhone(raw) {
+    return raw.replace(/\D/g, '');
+  }
+
+  function formatPhone(digits) {
+    return digits.slice(0, 3) + '.' + digits.slice(3, 6) + '.' + digits.slice(6, 10);
+  }
+
+  function validateFields(name, email, phone) {
+    if (!name.trim()) {
+      alert('Name is required');
+      return false;
+    }
+    if (email.trim() && !EMAIL_RE.test(email.trim())) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+    if (phone.trim()) {
+      var digits = stripPhone(phone);
+      if (digits.length !== 10) {
+        alert('Phone number must be 10 digits');
+        return false;
+      }
+    }
+    return true;
+  }
+
   async function loadDirectory() {
     try {
       var resp = await fetch('/api/directory');
@@ -133,10 +162,7 @@
   }
 
   async function saveEdit(id, name, email, phone) {
-    if (!name.trim()) {
-      alert('Name is required');
-      return;
-    }
+    if (!validateFields(name, email, phone)) return;
 
     try {
       var resp = await fetch('/api/directory/' + id, {
@@ -168,20 +194,16 @@
     e.preventDefault();
 
     var name = document.getElementById('add-name').value.trim();
-    if (!name) {
-      alert('Name is required');
-      return;
-    }
+    var email = document.getElementById('add-email').value.trim();
+    var phone = document.getElementById('add-phone').value.trim();
+
+    if (!validateFields(name, email, phone)) return;
 
     try {
       var resp = await fetch('/api/directory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name,
-          email: document.getElementById('add-email').value.trim(),
-          phone: document.getElementById('add-phone').value.trim()
-        })
+        body: JSON.stringify({ name: name, email: email, phone: phone })
       });
       if (!resp.ok) throw new Error('Failed to add');
       addForm.reset();

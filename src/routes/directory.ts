@@ -3,6 +3,17 @@ import db from '../db/index.js';
 
 const router = Router();
 
+// Validation helpers
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function stripPhone(raw: string): string {
+  return raw.replace(/\D/g, '');
+}
+
+function formatPhone(digits: string): string {
+  return digits.slice(0, 3) + '.' + digits.slice(3, 6) + '.' + digits.slice(6, 10);
+}
+
 // Get all entries, alphabetical by name
 router.get('/', (req, res) => {
   const entries = db.prepare(
@@ -19,9 +30,22 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'Name is required' });
   }
 
+  if (email && email.trim() && !EMAIL_RE.test(email.trim())) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
+  let cleanPhone: string | null = null;
+  if (phone && phone.trim()) {
+    const digits = stripPhone(phone);
+    if (digits.length !== 10) {
+      return res.status(400).json({ error: 'Phone number must be 10 digits' });
+    }
+    cleanPhone = formatPhone(digits);
+  }
+
   const result = db.prepare(
     'INSERT INTO directory (name, email, phone) VALUES (?, ?, ?)'
-  ).run(name.trim(), email?.trim() || null, phone?.trim() || null);
+  ).run(name.trim(), email?.trim() || null, cleanPhone);
 
   const entry = db.prepare('SELECT * FROM directory WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(entry);
@@ -40,9 +64,22 @@ router.put('/:id', (req, res) => {
     return res.status(400).json({ error: 'Name is required' });
   }
 
+  if (email && email.trim() && !EMAIL_RE.test(email.trim())) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
+  let cleanPhone: string | null = null;
+  if (phone && phone.trim()) {
+    const digits = stripPhone(phone);
+    if (digits.length !== 10) {
+      return res.status(400).json({ error: 'Phone number must be 10 digits' });
+    }
+    cleanPhone = formatPhone(digits);
+  }
+
   db.prepare(
     'UPDATE directory SET name = ?, email = ?, phone = ?, updated_at = datetime(\'now\') WHERE id = ?'
-  ).run(name.trim(), email?.trim() || null, phone?.trim() || null, req.params.id);
+  ).run(name.trim(), email?.trim() || null, cleanPhone, req.params.id);
 
   const entry = db.prepare('SELECT * FROM directory WHERE id = ?').get(req.params.id);
   res.json(entry);
