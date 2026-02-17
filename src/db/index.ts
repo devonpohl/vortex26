@@ -88,8 +88,29 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_events_start ON events(start_time);
   CREATE INDEX IF NOT EXISTS idx_rsvps_event ON rsvps(event_id);
   CREATE INDEX IF NOT EXISTS idx_households_dates ON households(arrival_date, departure_date);
+  CREATE TABLE IF NOT EXISTS poems (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author TEXT NOT NULL,
+    line_p TEXT NOT NULL,
+    line_o TEXT NOT NULL,
+    line_h TEXT NOT NULL,
+    line_l TEXT NOT NULL,
+    votes INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS poem_votes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    poem_id INTEGER NOT NULL REFERENCES poems(id) ON DELETE CASCADE,
+    voter TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    UNIQUE(poem_id, voter)
+  );
+
   CREATE INDEX IF NOT EXISTS idx_high_scores ON high_scores(score DESC);
   CREATE INDEX IF NOT EXISTS idx_directory_name ON directory(name);
+  CREATE INDEX IF NOT EXISTS idx_poems_sort ON poems(votes DESC, created_at ASC);
+  CREATE INDEX IF NOT EXISTS idx_poem_votes_unique ON poem_votes(poem_id, voter);
 `);
 
 // Refresh suggested events on every startup (curated content, not user data)

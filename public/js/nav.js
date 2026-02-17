@@ -4,6 +4,7 @@
     { href: '/suggested', label: 'Event Ideas' },
     { href: '/directory', label: 'Directory' },
     { href: '/photos', label: 'Photos' },
+    { href: '/poems', label: 'Poems' },
     { href: '/snake', label: 'Snake' },
     { href: '/logout', label: 'Logout' },
   ];

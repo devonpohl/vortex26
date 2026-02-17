@@ -10,6 +10,7 @@ import householdsRouter from './routes/households.js';
 import suggestedRouter from './routes/suggested-events.js';
 import scoresRouter from './routes/scores.js';
 import directoryRouter from './routes/directory.js';
+import poemsRouter from './routes/poems.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -71,6 +72,7 @@ app.use('/api/households', requireAuth, householdsRouter);
 app.use('/api/suggested', requireAuth, suggestedRouter);
 app.use('/api/scores', requireAuth, scoresRouter);
 app.use('/api/directory', requireAuth, directoryRouter);
+app.use('/api/poems', requireAuth, poemsRouter);
 
 // Protected page routes
 app.get('/', requireAuth, (req, res) => {
@@ -103,6 +105,10 @@ app.get('/snake', requireAuth, (req, res) => {
 
 app.get('/directory', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/directory.html'));
+});
+
+app.get('/poems', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/poems.html'));
 });
 
 // Start server
