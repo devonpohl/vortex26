@@ -1,7 +1,7 @@
 (function () {
   const NAV_LINKS = [
     { href: '/', label: 'Home' },
-    { href: '/suggested', label: 'Event Ideas' },
+    { href: '/suggested', label: 'Events' },
     { href: '/directory', label: 'Contacts' },
     { href: '/photos', label: 'Photos' },
     { href: '/poems', label: 'Poems' },

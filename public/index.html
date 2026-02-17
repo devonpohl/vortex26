@@ -101,12 +101,31 @@
     }
 
     @media (max-width: 900px) {
+      .quick-links {
+        gap: 0.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .quick-link {
+        padding: 0.5rem 0.4rem;
+        min-width: 0;
+        gap: 0.2rem;
+      }
+
+      .quick-link .ql-icon {
+        font-size: 1.1rem;
+      }
+
+      .quick-link .ql-label {
+        font-size: 0.7rem;
+      }
+
       .home-layout {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
         height: auto;
       }
-      
+
       .map-card, .next-up-card {
         grid-column: 1;
         grid-row: auto;
@@ -127,7 +146,7 @@
 
   <main>
     <div class="quick-links">
-      <a href="/events/new" class="quick-link">
+      <a href="/suggested" class="quick-link">
         <span class="ql-icon">📅</span>
         <span class="ql-label">Host an Event</span>
       </a>
@@ -163,7 +182,6 @@
       <div class="card calendar-card">
         <div class="card-header">
           <h2>📅 Calendar</h2>
-          <a href="/events/new" class="btn-add">+ Event</a>
         </div>
         <div id="full-calendar"></div>
       </div>
