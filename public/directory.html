@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directory - Pohler Vortex 2026</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .directory-page {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .directory-card .card-header {
+      margin-bottom: 1rem;
+    }
+
+    .directory-add {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .directory-add input {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    .directory-add input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .directory-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .directory-entry {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .directory-entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry-name {
+      font-weight: 600;
+    }
+
+    .entry-email a,
+    .entry-phone a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .entry-email a:hover,
+    .entry-phone a:hover {
+      text-decoration: underline;
+    }
+
+    .entry-actions {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .entry-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem 0.4rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      transition: all 0.2s;
+    }
+
+    .entry-actions .edit-btn:hover {
+      color: var(--color-primary);
+      background: rgba(37, 99, 235, 0.1);
+    }
+
+    .entry-actions .delete-btn:hover {
+      color: var(--color-danger);
+      background: #fef2f2;
+    }
+
+    .empty-state {
+      color: var(--color-text-muted);
+      font-style: italic;
+      padding: 1rem 0;
+    }
+
+    /* Edit mode row */
+    .directory-entry.editing {
+      grid-template-columns: 1fr 1fr 1fr auto;
+    }
+
+    .directory-entry.editing input {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    .entry-updated {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .directory-add {
+        grid-template-columns: 1fr;
+      }
+
+      .directory-entry {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+        padding: 0.75rem 0;
+      }
+
+      .entry-actions {
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="/js/nav.js"></script>
+
+  <main>
+    <section class="directory-page">
+      <div class="card directory-card">
+        <div class="card-header">
+          <h2>📇 Family Directory</h2>
+        </div>
+
+        <form id="add-form" class="directory-add">
+          <input type="text" id="add-name" placeholder="Name" required>
+          <input type="email" id="add-email" placeholder="Email">
+          <input type="tel" id="add-phone" placeholder="Phone">
+          <button type="submit" class="btn-primary">Add</button>
+        </form>
+
+        <ul id="directory-list" class="directory-list">
+          <li class="empty-state">Loading...</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/directory.js"></script>
+</body>
+</html>

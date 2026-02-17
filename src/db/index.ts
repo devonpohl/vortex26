@@ -76,10 +76,20 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS directory (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT,
+    phone TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now'))
+  );
+
   CREATE INDEX IF NOT EXISTS idx_events_start ON events(start_time);
   CREATE INDEX IF NOT EXISTS idx_rsvps_event ON rsvps(event_id);
   CREATE INDEX IF NOT EXISTS idx_households_dates ON households(arrival_date, departure_date);
   CREATE INDEX IF NOT EXISTS idx_high_scores ON high_scores(score DESC);
+  CREATE INDEX IF NOT EXISTS idx_directory_name ON directory(name);
 `);
 
 // Refresh suggested events on every startup (curated content, not user data)

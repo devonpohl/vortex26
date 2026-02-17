@@ -9,6 +9,7 @@ import eventsRouter from './routes/events.js';
 import householdsRouter from './routes/households.js';
 import suggestedRouter from './routes/suggested-events.js';
 import scoresRouter from './routes/scores.js';
+import directoryRouter from './routes/directory.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -69,6 +70,7 @@ app.use('/api/events', requireAuth, eventsRouter);
 app.use('/api/households', requireAuth, householdsRouter);
 app.use('/api/suggested', requireAuth, suggestedRouter);
 app.use('/api/scores', requireAuth, scoresRouter);
+app.use('/api/directory', requireAuth, directoryRouter);
 
 // Protected page routes
 app.get('/', requireAuth, (req, res) => {
@@ -97,6 +99,10 @@ app.get('/photos', requireAuth, (req, res) => {
 
 app.get('/snake', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/snake.html'));
+});
+
+app.get('/directory', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/directory.html'));
 });
 
 // Start server
