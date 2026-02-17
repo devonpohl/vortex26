@@ -2,7 +2,7 @@
   const NAV_LINKS = [
     { href: '/', label: 'Home' },
     { href: '/suggested', label: 'Event Ideas' },
-    { href: '/directory', label: 'Directory' },
+    { href: '/directory', label: 'Contacts' },
     { href: '/photos', label: 'Photos' },
     { href: '/poems', label: 'Poems' },
     { href: '/snake', label: 'Snake' },

@@ -60,6 +60,46 @@
       min-height: 300px;
     }
     
+    /* Quick-link cards */
+    .quick-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .quick-link {
+      flex: 1 1 0;
+      min-width: 120px;
+      text-decoration: none;
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1rem 0.75rem;
+      text-align: center;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .quick-link:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .quick-link .ql-icon {
+      font-size: 1.5rem;
+    }
+
+    .quick-link .ql-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
     @media (max-width: 900px) {
       .home-layout {
         grid-template-columns: 1fr;
@@ -86,6 +126,29 @@
   <script src="/js/nav.js"></script>
 
   <main>
+    <div class="quick-links">
+      <a href="/events/new" class="quick-link">
+        <span class="ql-icon">📅</span>
+        <span class="ql-label">Host an Event</span>
+      </a>
+      <a href="/directory" class="quick-link">
+        <span class="ql-icon">📇</span>
+        <span class="ql-label">Contact Info</span>
+      </a>
+      <a href="/photos" class="quick-link">
+        <span class="ql-icon">📸</span>
+        <span class="ql-label">Share Photos</span>
+      </a>
+      <a href="/poems" class="quick-link">
+        <span class="ql-icon">✍️</span>
+        <span class="ql-label">Write a Poem</span>
+      </a>
+      <a href="/snake" class="quick-link">
+        <span class="ql-icon">🐍</span>
+        <span class="ql-label">Compete in Snake</span>
+      </a>
+    </div>
+
     <section class="home-layout">
       <!-- Map -->
       <div class="card map-card">
