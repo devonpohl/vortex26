@@ -41,11 +41,19 @@ router.post('/', (req, res) => {
   if (!name) {
     return res.status(400).json({ error: 'Name is required' });
   }
-  
+
+  if (!address || !address.trim()) {
+    return res.status(400).json({ error: 'Address is required' });
+  }
+
+  if (latitude == null || longitude == null) {
+    return res.status(400).json({ error: 'Location coordinates are required. Enter a valid address or click the map.' });
+  }
+
   const result = db.prepare(`
     INSERT INTO households (name, latitude, longitude, address, arrival_date, departure_date)
     VALUES (?, ?, ?, ?, ?, ?)
-  `).run(name, latitude || null, longitude || null, address || null, arrival_date || null, departure_date || null);
+  `).run(name, latitude, longitude, address.trim(), arrival_date || null, departure_date || null);
   
   const household = db.prepare('SELECT * FROM households WHERE id = ?').get(result.lastInsertRowid) as Household;
   

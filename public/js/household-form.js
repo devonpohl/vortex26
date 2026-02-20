@@ -42,15 +42,21 @@ function initMap() {
   // Click to place marker
   map.on('click', (e) => {
     const { lat, lng } = e.latlng;
-    
+
     if (marker) {
       marker.setLatLng([lat, lng]);
     } else {
       marker = L.marker([lat, lng]).addTo(map);
     }
-    
+
     document.getElementById('latitude').value = lat;
     document.getElementById('longitude').value = lng;
+
+    var gs = document.getElementById('geo-status');
+    if (gs) {
+      gs.textContent = '\u2705 Location confirmed';
+      gs.style.color = 'var(--color-success)';
+    }
   });
 }
 
@@ -62,16 +68,35 @@ function initForm() {
   const form = document.getElementById('household-form');
   const addressInput = document.getElementById('address');
   
+  var geoStatus = document.createElement('span');
+  geoStatus.id = 'geo-status';
+  geoStatus.style.cssText = 'font-size:0.85rem;margin-top:0.25rem;display:block;';
+  addressInput.parentNode.appendChild(geoStatus);
+
+  function updateGeoStatus() {
+    var lat = document.getElementById('latitude').value;
+    var lng = document.getElementById('longitude').value;
+    if (lat && lng) {
+      geoStatus.textContent = '\u2705 Location confirmed';
+      geoStatus.style.color = 'var(--color-success)';
+    } else {
+      geoStatus.textContent = '';
+    }
+  }
+
   // Geocode on address blur
   addressInput.addEventListener('blur', async () => {
     const address = addressInput.value.trim();
     if (!address) return;
-    
+
+    geoStatus.textContent = 'Looking up address\u2026';
+    geoStatus.style.color = 'var(--color-text-muted)';
+
     const coords = await geocodeAddress(address);
     if (coords) {
       document.getElementById('latitude').value = coords.lat;
       document.getElementById('longitude').value = coords.lng;
-      
+
       // Update map
       if (marker) {
         marker.setLatLng([coords.lat, coords.lng]);
@@ -79,6 +104,10 @@ function initForm() {
         marker = L.marker([coords.lat, coords.lng]).addTo(map);
       }
       map.setView([coords.lat, coords.lng], 13);
+      updateGeoStatus();
+    } else {
+      geoStatus.textContent = '\u274C Could not find this address. Try a more specific address or click the map.';
+      geoStatus.style.color = 'var(--color-danger)';
     }
   });
   
@@ -86,13 +115,28 @@ function initForm() {
     e.preventDefault();
     
     const formData = new FormData(form);
+
+    var address = (formData.get('address') || '').trim();
+    var lat = formData.get('latitude');
+    var lng = formData.get('longitude');
+
+    if (!address) {
+      alert('Please enter an address.');
+      return;
+    }
+
+    if (!lat || !lng) {
+      alert('Location could not be confirmed. Please enter a valid address or click the map to set a pin.');
+      return;
+    }
+
     const data = {
       name: formData.get('name'),
       arrival_date: formData.get('arrival_date') || null,
       departure_date: formData.get('departure_date') || null,
-      address: formData.get('address') || null,
-      latitude: formData.get('latitude') ? parseFloat(formData.get('latitude')) : null,
-      longitude: formData.get('longitude') ? parseFloat(formData.get('longitude')) : null
+      address: address,
+      latitude: parseFloat(lat),
+      longitude: parseFloat(lng)
     };
     
     try {

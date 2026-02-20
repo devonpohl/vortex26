@@ -40,6 +40,14 @@ router.post('/', (req, res) => {
   if (!title || !start_time) {
     return res.status(400).json({ error: 'Title and start_time are required' });
   }
+
+  if (!address || !address.trim()) {
+    return res.status(400).json({ error: 'Address is required' });
+  }
+
+  if (latitude == null || longitude == null) {
+    return res.status(400).json({ error: 'Location coordinates are required. Enter a valid address or click the map.' });
+  }
   
   const result = db.prepare(`
     INSERT INTO events (title, description, latitude, longitude, location_name, address, start_time, end_time)
