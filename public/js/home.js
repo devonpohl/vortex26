@@ -216,8 +216,8 @@ function populateUpcomingEvents(events, households) {
   // Sort by date
   items.sort((a, b) => a.date - b.date);
   
-  // Take first 15
-  const upcoming = items.slice(0, 15);
+  // Show all upcoming items
+  const upcoming = items;
   
   if (upcoming.length === 0) {
     list.innerHTML = '<li>No upcoming events. <a href="/events/new">Create one!</a></li>';
