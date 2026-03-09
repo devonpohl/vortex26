@@ -1,5 +1,8 @@
 node_modules/
 dist/
+data/
 .env
 *.db
+*.docx
+*.cjs
 credentials/
